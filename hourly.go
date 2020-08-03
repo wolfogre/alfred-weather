@@ -80,8 +80,25 @@ func (c HourlyCommand) Items(arg, data string) (items []alfred.Item, err error) 
 		conditions := entry.Summary
 		icon := entry.Icon
 
+		var date string
+		switch entry.Time.Weekday() {
+		case time.Sunday:
+			date = "星期天"
+		case time.Monday:
+			date = "星期一"
+		case time.Tuesday:
+			date = "星期二"
+		case time.Wednesday:
+			date = "星期三"
+		case time.Thursday:
+			date = "星期四"
+		case time.Friday:
+			date = "星期五"
+		case time.Saturday:
+			date = "星期六"
+		}
 		item := alfred.Item{
-			Title:    entry.Time.Format("Mon "+config.TimeFormat) + ": " + conditions,
+			Title:    date + " " + entry.Time.Format(config.TimeFormat) + ": " + conditions,
 			Subtitle: fmt.Sprintf("%d°%s (%d°%s)   ☂ %d%%", entry.Temp.Int64(), deg, entry.ApparentTemp.Int64(), deg, entry.Precip),
 			Icon:     getIconFile(icon),
 		}

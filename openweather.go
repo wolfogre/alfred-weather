@@ -90,12 +90,14 @@ func (f *OpenWeather) Forecast(l Location) (weather Weather, err error) {
 	dlog.Printf("getting forecast for %#v", l)
 
 	units := "metric"
+	lang := "zh_cn"
 
 	query := url.Values{}
 	query.Set("lat", fmt.Sprintf("%f", l.Latitude))
 	query.Set("lon", fmt.Sprintf("%f", l.Longitude))
 	query.Set("appid", f.apiKey)
 	query.Set("units", units)
+	query.Set("lang", lang)
 
 	url := fmt.Sprintf("%s?%s", owAPI, query.Encode())
 

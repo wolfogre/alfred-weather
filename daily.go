@@ -58,7 +58,7 @@ func (c DailyCommand) Items(arg, data string) (items []alfred.Item, err error) {
 	addAlertItems(&weather, &items)
 
 	items = append(items, alfred.Item{
-		Title:    "Currently: " + weather.Current.Summary,
+		Title:    "当前: " + weather.Current.Summary,
 		Subtitle: fmt.Sprintf("%d°%s (%d°%s)", weather.Current.Temp.Int64(), deg, weather.Current.ApparentTemp.Int64(), deg),
 		Icon:     getIconFile(weather.Current.Icon),
 		Arg: &alfred.ItemArg{
@@ -75,14 +75,29 @@ func (c DailyCommand) Items(arg, data string) (items []alfred.Item, err error) {
 
 		if entry.Date.Format("1/2/2006") == now.Format("1/2/2006") {
 			if weather.IsAtNight(now) {
-				date = "Tonight"
+				date = "今晚"
 				icon = "nt_" + icon
 				conditions = strings.Replace(conditions, " day", " night", -1)
 			} else {
-				date = "Today"
+				date = "今天"
 			}
 		} else {
-			date = entry.Date.Format("Monday")
+			switch entry.Date.Weekday() {
+			case time.Sunday:
+				date = "星期天"
+			case time.Monday:
+				date = "星期一"
+			case time.Tuesday:
+				date = "星期二"
+			case time.Wednesday:
+				date = "星期三"
+			case time.Thursday:
+				date = "星期四"
+			case time.Friday:
+				date = "星期五"
+			case time.Saturday:
+				date = "星期六"
+			}
 		}
 
 		parts := []string{
