@@ -29,7 +29,7 @@ type Geocode struct {
 func Locate(location string) (l []Geocode, err error) {
 	dlog.Printf("Locating %s", location)
 
-	url := fmt.Sprintf("%s", mapAPI)
+	url := mapAPI
 
 	params := map[string]string{"q": location, "format": "json", "addressDetails": "1"}
 	var content []byte

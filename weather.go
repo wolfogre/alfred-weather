@@ -82,7 +82,7 @@ func getWeather(query string) (loc Location, weather Weather, err error) {
 		return
 	}
 
-	expired := time.Now().Sub(cache.Time).Minutes() >= 5.0 ||
+	expired := time.Since(cache.Time).Minutes() >= 5.0 ||
 		time.Now().Format("1/2/2016") != cache.Time.Format("1/2/2016") ||
 		cache.Service != config.Service
 

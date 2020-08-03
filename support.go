@@ -28,12 +28,6 @@ type Location struct {
 	Name      string
 }
 
-// Service is a forecasting service
-type Service interface {
-	About() string
-	Forecast(Location, map[string]string) (Weather, error)
-}
-
 // TimeFormats are the available time formats
 var TimeFormats = []string{
 	"15:04",

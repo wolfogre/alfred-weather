@@ -182,8 +182,6 @@ func addAlertItems(weather *Weather, items *[]alfred.Item) {
 			*items = append(*items, item)
 		}
 	}
-
-	return
 }
 
 func hasHourly(weather Weather, date time.Time) bool {
